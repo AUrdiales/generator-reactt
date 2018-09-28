@@ -1,5 +1,5 @@
 {
-  "name": "generator-rrt",
+  "name": "generator-reactt",
   "version": "0.1.0",
   "description": "A generator for React and Typescript applications",
   "main": "index.js",
