@@ -1,12 +1,13 @@
 const Generator = require('yeoman-generator');
 const yosay = require('yosay');
+const chalk = require('chalk');
 
 const utils = require('./utils');
 
 module.exports = class extends Generator {
 	constructor(args, opts) {
 		super(args, opts);
-		this.appname = 'new app';
+		this.appname = 'new-app';
 		this.argument('name', { type: String, required: false });
 		this.option('skip-install');
 	}
@@ -28,7 +29,7 @@ module.exports = class extends Generator {
 	}
 
 	configuring() {
-		// Configuration
+		this._private_copyConfigurationFiles();
 	}
 
 	writing() {
@@ -40,7 +41,7 @@ module.exports = class extends Generator {
 	}
 
 	install() {
-		// install dependencies
+		this._private_installDependencies();
 	}
 
 	end() {
@@ -59,6 +60,30 @@ module.exports = class extends Generator {
 			this.destinationRoot(this.appname);
 		} else {
 			this.destinationRoot(__dirname);
+		}
+	}
+	_private_copyConfigurationFiles() {
+		if (this.answers.styles === 'css') {
+			utils.configurationFiles.forEach((file) => {
+				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file), {
+					name: this.appname,
+				});
+			});
+			this.fs.extendJSON(this.destinationPath('package.json'), utils.cssDependencies);
+		} else {
+			this.log('sorry the other options are not available yet!');
+		}
+	}
+
+	_private_installDependencies() {
+		if (!this.options['skip-install']) {
+			if (this.answers.manager) {
+				this.log(`${chalk.grey('Installing dependencies with')} ${chalk.blue('yarn')}`)
+				this.yarnInstall();
+			} else {
+				this.log(`${chalk.grey('Installing dependencies with')} ${chalk.green('npm')}`)
+				this.npmInstall();
+			}
 		}
 	}
 }
