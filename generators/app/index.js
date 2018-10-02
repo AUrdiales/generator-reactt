@@ -3,6 +3,7 @@ const yosay = require('yosay');
 const chalk = require('chalk');
 
 const utils = require('./utils');
+const packages = require('./packages');
 
 module.exports = class extends Generator {
 	constructor(args, opts) {
@@ -33,7 +34,7 @@ module.exports = class extends Generator {
 	}
 
 	writing() {
-		// creating template files
+		this._private_copySourceFiles();
 	}
 
 	conflicts() {
@@ -69,9 +70,19 @@ module.exports = class extends Generator {
 					name: this.appname,
 				});
 			});
-			this.fs.extendJSON(this.destinationPath('package.json'), utils.cssDependencies);
+			this.fs.extendJSON(this.destinationPath('package.json'), packages.cssDependencies);
 		} else {
 			this.log('sorry the other options are not available yet!');
+		}
+	}
+
+	_private_copySourceFiles() {
+		if (this.answers.styles === 'css') {
+			utils.sourceFilesCss.forEach((file) => {
+				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file), {
+					name: this.appname
+				});
+			});
 		}
 	}
 
