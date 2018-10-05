@@ -36,13 +36,42 @@ const configurationFiles = [
 	'package.json',
 ];
 
-const sourceFilesCss = [
-	'src',
+const commonFiles = [
+	'src/components/HelloWorld/IHelloWorldProps.ts',
+	'src/components/HelloWorld/IHelloWorldState.ts',
 	'test',
-	'webpack'
-]
+	'webpack/plugins/html.ts',
+	'webpack/plugins/uglify.ts',
+	'webpack/webpack.dev.ts',
+	'webpack/webpack.prod.ts',
+	'index.js'
+];
+
+const sourceFilesCss = [
+	'src/components/HelloWorld/HelloWorld.css',
+	'src/components/HelloWorld/HelloWorld.css.tsx',
+	'src/index.tsx',
+	'src/index.html',
+	'webpack/webpack.common.css.ts',
+	'webpack/webpack.test.css.ts',
+	'webpack/plugins/css.ts',
+	...commonFiles
+];
+
+const sourceFilesSass = [
+	'src/components/HelloWorld/HelloWorld.scss',
+	'src/components/HelloWorld/HelloWorld.sass.tsx',
+	'src/index.tsx',
+	'src/index.html',
+	'webpack/webpack.common.sass.ts',
+	'webpack/webpack.test.sass.ts',
+	'webpack/plugins/css.ts',
+	...commonFiles
+];
+
 module.exports = {
 	questions,
 	configurationFiles,
-	sourceFilesCss
+	sourceFilesCss,
+	sourceFilesSass,
 }

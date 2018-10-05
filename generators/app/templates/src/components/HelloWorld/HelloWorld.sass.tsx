@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './HelloWorld.css';
+import './HelloWorld.scss';
 import { IHelloWorldProps } from './IHelloWorldProps';
 import { IHelloWorldState } from './IHelloWorldState';
 
@@ -10,13 +10,13 @@ export class HelloWorld extends Component<IHelloWorldProps, IHelloWorldState> {
 		isClicked: false,
 	};
 
-	private onClick = () => {
+	private onClick = (): void => {
 		this.setState((prevState: IHelloWorldState) => ({
 			isClicked: !prevState.isClicked,
 		}));
 	}
 
-	public render() {
+	public render(): JSX.Element {
 		const { isClickable } = this.props;
 		return (
 			<div className={this.state.isClicked ? 'hello-world-background clicked' : 'hello-world-background no-clicked'}>

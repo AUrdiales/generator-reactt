@@ -3,9 +3,9 @@ import { render } from 'react-dom';
 
 import { HelloWorld } from './components/HelloWorld/HelloWorld';
 
-const root = document.getElementById('root');
+const root: HTMLElement = document.getElementById('root');
 
-const App = () => (
+const App: React.SFC<{}> = (): JSX.Element => (
 	<div>
 		<HelloWorld isClickable={true} />
 	</div>

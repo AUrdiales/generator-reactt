@@ -60,7 +60,19 @@ const cssDependencies = {
 	}
 }
 
+const sassDependencies = {
+	devDependencies: {
+		...cssDependencies.devDependencies,
+		"node-sass": "^4.9.3",
+		"sass-loader": "^7.1.0"
+	},
+	dependencies: {
+		...cssDependencies.dependencies
+	}
+}
+
 module.exports = {
 	pkgJson,
-	cssDependencies
+	cssDependencies,
+	sassDependencies
 }

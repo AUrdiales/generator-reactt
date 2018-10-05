@@ -66,20 +66,31 @@ module.exports = class extends Generator {
 	_private_copyConfigurationFiles() {
 		if (this.answers.styles === 'css') {
 			utils.configurationFiles.forEach((file) => {
-				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file), {
+				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/\.css\./, '.')), {
 					name: this.appname,
 				});
 			});
 			this.fs.extendJSON(this.destinationPath('package.json'), packages.cssDependencies);
-		} else {
-			this.log('sorry the other options are not available yet!');
+		} else if (this.answers.styles === 'sass') {
+			utils.configurationFiles.forEach((file) => {
+				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/\.sass\./, '.')), {
+					name: this.appname,
+				});
+			});
+			this.fs.extendJSON(this.destinationPath('package.json'), packages.sassDependencies);
 		}
 	}
 
 	_private_copySourceFiles() {
 		if (this.answers.styles === 'css') {
 			utils.sourceFilesCss.forEach((file) => {
-				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file), {
+				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/\.css\./, '.')), {
+					name: this.appname
+				});
+			});
+		} else if (this.answers.styles === 'sass') {
+			utils.sourceFilesSass.forEach((file) => {
+				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/\.sass\./, '.')), {
 					name: this.appname
 				});
 			});
@@ -89,10 +100,10 @@ module.exports = class extends Generator {
 	_private_installDependencies() {
 		if (!this.options['skip-install']) {
 			if (this.answers.manager) {
-				this.log(`${chalk.grey('Installing dependencies with')} ${chalk.blue('yarn')}`)
+				this.log(`${chalk.grey('\nInstalling dependencies with')} ${chalk.blue('yarn')}\n`)
 				this.yarnInstall();
 			} else {
-				this.log(`${chalk.grey('Installing dependencies with')} ${chalk.green('npm')}`)
+				this.log(`${chalk.grey('\nInstalling dependencies with')} ${chalk.green('npm')}\n`)
 				this.npmInstall();
 			}
 		}

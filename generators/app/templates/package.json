@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "clean": "rimraf dist/*",
     "serve": "NODE_ENV=development webpack-dev-server --config webpack/webpack.dev.ts --port 3333",
     "build": "yarn clean && NODE_ENV=production webpack --config webpack/webpack.prod.ts",
