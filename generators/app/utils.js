@@ -29,6 +29,24 @@ const questions = [
 	}
 ];
 
+const addQuestions = [
+	{
+		type: 'input',
+		name: 'componentName',
+		message: 'Please tell me your component name',
+		default: 'NewComponent'
+	},
+	{
+		type: 'list',
+		name: 'feature',
+		message: 'Is this a component or a container?',
+		choices: [
+			'component',
+			'container'
+		]
+	}
+];
+
 const configurationFiles = [
 	'karma.config.ts',
 	'tslint.json',
@@ -71,7 +89,8 @@ const sourceFilesSass = [
 
 module.exports = {
 	questions,
+	addQuestions,
 	configurationFiles,
 	sourceFilesCss,
-	sourceFilesSass,
+	sourceFilesSass
 }

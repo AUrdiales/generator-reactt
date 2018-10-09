@@ -11,6 +11,7 @@ module.exports = class extends Generator {
 		this.appname = 'new-app';
 		this.argument('name', { type: String, required: false });
 		this.option('skip-install');
+		this.configured = this.config.getAll();
 	}
 
 	initializing() {
@@ -18,23 +19,36 @@ module.exports = class extends Generator {
 	}
 
 	async prompting() {
-		let questions = utils.questions;
-		if (this.options['skip-install']) {
-			questions = questions.filter((question) => question.name !== 'manager');
+		let questions;
+		if (this.config.get("manager")) {
+			questions = utils.addQuestions;
+			this.answers = await this.prompt(questions);
+		} else {
+			questions = utils.questions;
+			if (this.options['skip-install']) {
+				questions = questions.filter((question) => question.name !== 'manager');
+			}
+			if (this.options.name) {
+				questions = questions.filter((question) => question.name !== 'name');
+			}
+			this.answers = await this.prompt(questions);
+			this._private_setAppName();
 		}
-		if (this.options.name) {
-			questions = questions.filter((question) => question.name !== 'name');
-		}
-		this.answers = await this.prompt(questions);
-		this._private_setAppName();
 	}
 
 	configuring() {
-		this._private_copyConfigurationFiles();
+		if (!this.config.get("manager")) {
+			this._private_copyConfigurationFiles();
+		}
 	}
 
 	writing() {
-		this._private_copySourceFiles();
+		if (this.config.get("manager")) {
+			this._private_copyAddFeature();
+		} else {
+			this._private_copySourceFiles();
+		}
+
 	}
 
 	conflicts() {
@@ -42,7 +56,13 @@ module.exports = class extends Generator {
 	}
 
 	install() {
-		this._private_installDependencies();
+		if (!this.configured.manager) {
+			this._private_installDependencies();
+			this.config.set("stack", "react");
+			this.config.set("manager", this.answers.manager ? "yarn" : "npm");
+			this.config.set("styles", this.answers.styles);
+			this.config.save();
+		}
 	}
 
 	end() {
@@ -66,35 +86,54 @@ module.exports = class extends Generator {
 	_private_copyConfigurationFiles() {
 		if (this.answers.styles === 'css') {
 			utils.configurationFiles.forEach((file) => {
-				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/\.css\./, '.')), {
+				this.fs.copyTpl(this.templatePath(`completeApp/${file}`), this.destinationPath(file.replace(/\.css\./, '.')), {
 					name: this.appname,
 				});
 			});
-			this.fs.extendJSON(this.destinationPath('package.json'), packages.cssDependencies);
+			this.fs.extendJSON(this.destinationPath(`package.json`), packages.cssDependencies);
 		} else if (this.answers.styles === 'sass') {
 			utils.configurationFiles.forEach((file) => {
 				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/\.sass\./, '.')), {
 					name: this.appname,
 				});
 			});
-			this.fs.extendJSON(this.destinationPath('package.json'), packages.sassDependencies);
+			this.fs.extendJSON(this.destinationPath(`completeApp/package.json`), packages.sassDependencies);
 		}
 	}
 
 	_private_copySourceFiles() {
 		if (this.answers.styles === 'css') {
 			utils.sourceFilesCss.forEach((file) => {
-				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/\.css\./, '.')), {
+				this.fs.copyTpl(this.templatePath(`completeApp/${file}`), this.destinationPath(file.replace(/\.css\./, '.')), {
 					name: this.appname
 				});
 			});
 		} else if (this.answers.styles === 'sass') {
 			utils.sourceFilesSass.forEach((file) => {
-				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/\.sass\./, '.')), {
+				this.fs.copyTpl(this.templatePath(`completeApp/${file}`), this.destinationPath(file.replace(/\.sass\./, '.')), {
 					name: this.appname
 				});
 			});
 		}
+	}
+
+	_private_copyAddFeature() {
+		const name = `${this.answers.componentName.charAt(0).toUpperCase()}${this.answers.componentName.slice(1)}`;
+		if (this.answers.feature === 'component') {
+			this.destinationRoot(`${process.cwd()}/src/components/${name}`);
+			this.fs.copyTpl(this.templatePath(`component/Component.css.tsx`), this.destinationPath(`${name}.tsx`), {
+				name: name
+			});
+		} else {
+			this.destinationRoot(`${process.cwd()}/src/containers/${name}`);
+			this.fs.copyTpl(this.templatePath(`component/Container.css.tsx`), this.destinationPath(`${name}.tsx`), {
+				name: name
+			})
+		}
+		this.fs.copyTpl(this.templatePath(`Component/Component.css`), this.destinationPath(`${name}.css`));
+		this.fs.copyTpl(this.templatePath(`component/IComponentProps.ts`), this.destinationPath(`${name}Props.ts`), {
+			name: name
+		});
 	}
 
 	_private_installDependencies() {
