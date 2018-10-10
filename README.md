@@ -28,7 +28,9 @@ This package is a yeoman generator for react + typescript applications.
 
 - Install node.js and npm.
 - Install yo package to execute yeoman generators
-
+```
+npm i -g yo
+```
 ### Install
 ```
 npm i -g generator-reactt
