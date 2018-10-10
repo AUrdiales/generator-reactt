@@ -93,11 +93,11 @@ module.exports = class extends Generator {
 			this.fs.extendJSON(this.destinationPath(`package.json`), packages.cssDependencies);
 		} else if (this.answers.styles === 'sass') {
 			utils.configurationFiles.forEach((file) => {
-				this.fs.copyTpl(this.templatePath(file), this.destinationPath(file.replace(/\.sass\./, '.')), {
+				this.fs.copyTpl(this.templatePath(`completeApp/${file}`), this.destinationPath(file.replace(/\.sass\./, '.')), {
 					name: this.appname,
 				});
 			});
-			this.fs.extendJSON(this.destinationPath(`completeApp/package.json`), packages.sassDependencies);
+			this.fs.extendJSON(this.destinationPath(`package.json`), packages.sassDependencies);
 		}
 	}
 
@@ -120,20 +120,53 @@ module.exports = class extends Generator {
 	_private_copyAddFeature() {
 		const name = `${this.answers.componentName.charAt(0).toUpperCase()}${this.answers.componentName.slice(1)}`;
 		if (this.answers.feature === 'component') {
-			this.destinationRoot(`${process.cwd()}/src/components/${name}`);
-			this.fs.copyTpl(this.templatePath(`component/Component.css.tsx`), this.destinationPath(`${name}.tsx`), {
-				name: name
-			});
+			if (this.configured.styles === 'css') {
+				this.destinationRoot(`${process.cwd()}/src/components/${name}`);
+				this.fs.copyTpl(this.templatePath(`component/Component.css.tsx`), this.destinationPath(`${name}.tsx`), {
+					name: name
+				});
+			} else if (this.configured.styles === 'sass') {
+				this.destinationRoot(`${process.cwd()}/src/components/${name}`);
+				this.fs.copyTpl(this.templatePath(`component/Component.sass.tsx`), this.destinationPath(`${name}.tsx`), {
+					name: name
+				});
+			}
 		} else {
-			this.destinationRoot(`${process.cwd()}/src/containers/${name}`);
-			this.fs.copyTpl(this.templatePath(`component/Container.css.tsx`), this.destinationPath(`${name}.tsx`), {
-				name: name
-			})
+			if (this.configured.styles === 'css') {
+				this.destinationRoot(`${process.cwd()}/src/containers/${name}`);
+				this.fs.copyTpl(this.templatePath(`component/Container.css.tsx`), this.destinationPath(`${name}.tsx`), {
+					name: name
+				});
+			} else if (this.configured.styles === 'sass') {
+				this.destinationRoot(`${process.cwd()}/src/containers/${name}`);
+				this.fs.copyTpl(this.templatePath(`component/Container.sass.tsx`), this.destinationPath(`${name}.tsx`), {
+					name: name
+				});
+			}
 		}
-		this.fs.copyTpl(this.templatePath(`Component/Component.css`), this.destinationPath(`${name}.css`));
-		this.fs.copyTpl(this.templatePath(`component/IComponentProps.ts`), this.destinationPath(`${name}Props.ts`), {
+		if (this.configured.styles === 'css') {
+			this.fs.copyTpl(this.templatePath(`Component/Component.css`), this.destinationPath(`${name}.css`));
+		} else if (this.configured.styles === 'sass') {
+			this.fs.copyTpl(this.templatePath(`Component/Component.css`), this.destinationPath(`${name}.scss`));
+		}
+		this.fs.copyTpl(this.templatePath(`component/IComponentProps.ts`), this.destinationPath(`I${name}Props.ts`), {
 			name: name
 		});
+		if(this.answers.feature === 'component') {
+			process.chdir('../../../');
+			this.log(process.cwd())
+			this.destinationRoot(`${process.cwd()}/test/${name}`);
+		this.fs.copyTpl(this.templatePath(`component/Component.test.tsx`), this.destinationPath(`${name}.test.tsx`), {
+			name: name
+		});
+		} else {
+			process.chdir('../../../');
+			this.log(process.cwd())
+			this.destinationRoot(`${process.cwd()}/test/${name}`);
+		this.fs.copyTpl(this.templatePath(`component/Container.test.tsx`), this.destinationPath(`${name}.test.tsx`), {
+			name: name
+		});
+		}
 	}
 
 	_private_installDependencies() {

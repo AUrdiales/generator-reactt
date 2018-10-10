@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './<%= name %>.css';
+import './<%= name %>.scss';
 import { I<%= name %>Props } from './I<%= name %>Props';
 
 export class <%= name %> extends React.Component < I<%= name %>Props > {
