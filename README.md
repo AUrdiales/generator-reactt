@@ -8,19 +8,24 @@ This package is a yeoman generator for react + typescript applications.
 
 - Create a react app with webpack + tslint + typescript + react to make frontend projects.
 
-- Choose between css and scss for the styles of your app.
+- Choose between css, scss and css in js for the styles of your app.
 
 - Testing suite with mocha + chai + enzyme and karma.
 
 - Simplicity to add react-router, redux or any package of the ecosystem.
 
+- Create component feature to have a templated component ready fast.
+
 ### Future updates
 
+
+- ~~Add emotion for css in js support.~~
+
+- ~~Implement a create component feature to allow the developers to have a templated component ready fast.~~
+
+- Use Jest instead of karma + mocha + chai.
+
 - Allow the creation of React + Redux + React Router proyects.
-
-- Add emotion for css in js support.
-
-- Implement a create component feature to allow the developers to have a templated component ready fast.
 
 ## Getting Started
 
