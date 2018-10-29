@@ -24,7 +24,8 @@ const questions = [
 		message: 'What kind of styles language do you want?',
 		choices: [
 			"css",
-			"sass"
+			"sass",
+			"css-in-js"
 		]
 	}
 ];
@@ -55,8 +56,8 @@ const configurationFiles = [
 ];
 
 const commonFiles = [
-	'src/components/HelloWorld/IHelloWorldProps.ts',
-	'src/components/HelloWorld/IHelloWorldState.ts',
+	'src/containers/HelloWorld/IHelloWorldProps.ts',
+	'src/containers/HelloWorld/IHelloWorldState.ts',
 	'test',
 	'webpack/plugins/html.ts',
 	'webpack/plugins/uglify.ts',
@@ -66,8 +67,8 @@ const commonFiles = [
 ];
 
 const sourceFilesCss = [
-	'src/components/HelloWorld/HelloWorld.css',
-	'src/components/HelloWorld/HelloWorld.css.tsx',
+	'src/containers/HelloWorld/HelloWorld.css',
+	'src/containers/HelloWorld/HelloWorld.css.tsx',
 	'src/index.tsx',
 	'src/index.html',
 	'webpack/webpack.common.css.ts',
@@ -77,8 +78,8 @@ const sourceFilesCss = [
 ];
 
 const sourceFilesSass = [
-	'src/components/HelloWorld/HelloWorld.scss',
-	'src/components/HelloWorld/HelloWorld.sass.tsx',
+	'src/containers/HelloWorld/HelloWorld.scss',
+	'src/containers/HelloWorld/HelloWorld.sass.tsx',
 	'src/index.tsx',
 	'src/index.html',
 	'webpack/webpack.common.sass.ts',
@@ -87,10 +88,21 @@ const sourceFilesSass = [
 	...commonFiles
 ];
 
+const sourceFilesCssInJS = [
+	'src/containers/HelloWorld/HelloWorld.cssinjs',
+	'src/containers/HelloWorld/HelloWorld.cssinjs.tsx',
+	'src/index.tsx',
+	'src/index.html',
+	'webpack/webpack.common.cssinjs.ts',
+	'webpack/webpack.test.cssinjs.ts',
+	...commonFiles
+];
+
 module.exports = {
 	questions,
 	addQuestions,
 	configurationFiles,
 	sourceFilesCss,
-	sourceFilesSass
+	sourceFilesSass,
+	sourceFilesCssInJS
 }
