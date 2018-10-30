@@ -1,0 +1,7 @@
+{
+  "generator-reactt": {
+    "stack": "react",
+    "manager": "npm",
+    "styles": "css"
+  }
+}
