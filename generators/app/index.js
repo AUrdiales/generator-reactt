@@ -120,7 +120,7 @@ module.exports = class extends Generator {
 				});
 			});
 		} else if(this.answers.styles === 'css-in-js') {
-			utils.configurationFiles.forEach((file) => {
+			utils.sourceFilesCssInJS.forEach((file) => {
 				this.fs.copyTpl(this.templatePath(`completeApp/${file}`), this.destinationPath(file.replace(/\.cssinjs\./, '.')), {
 					name: this.appname,
 				});
@@ -141,13 +141,11 @@ module.exports = class extends Generator {
 				this.fs.copyTpl(this.templatePath(`component/Component.sass.tsx`), this.destinationPath(`${name}.tsx`), {
 					name: name
 				});
-			} else if(this.answers.styles === 'css-in-js') {
-				utils.configurationFiles.forEach((file) => {
+			} else if(this.configured.styles === 'css-in-js') {
 					this.destinationRoot(`${process.cwd()}/src/components/${name}`);
 					this.fs.copyTpl(this.templatePath(`component/Component.cssinjs.tsx`), this.destinationPath(`${name}.tsx`), {
 						name: name,
 					});
-				});
 			}
 		} else {
 			if (this.configured.styles === 'css') {
@@ -160,21 +158,19 @@ module.exports = class extends Generator {
 				this.fs.copyTpl(this.templatePath(`component/Container.sass.tsx`), this.destinationPath(`${name}.tsx`), {
 					name: name
 				});
-			}  else if(this.answers.styles === 'css-in-js') {
-				utils.configurationFiles.forEach((file) => {
+			}  else if(this.configured.styles === 'css-in-js') {
 					this.destinationRoot(`${process.cwd()}/src/containers/${name}`);
-					this.fs.copyTpl(this.templatePath(`component/Container.cssinjs.tsx`), this.destinationPath(file.replace(/\.cssinjs\./, '.')), {
-						name: this.appname,
+					this.fs.copyTpl(this.templatePath(`component/Container.cssinjs.tsx`), this.destinationPath(`${name}.tsx`), {
+						name: name,
 					});
-				});
 			}
 		}
 		if (this.configured.styles === 'css') {
 			this.fs.copyTpl(this.templatePath(`Component/Component.css`), this.destinationPath(`${name}.css`));
 		} else if (this.configured.styles === 'sass') {
 			this.fs.copyTpl(this.templatePath(`Component/Component.css`), this.destinationPath(`${name}.scss`));
-		} else if (this.configured.styles === 'cssinjs') {
-			this.fs.copyTpl(this.templatePath(`Component/Component.cssinjs`), this.destinationPath(`${name}.styles.ts`));
+		} else if (this.configured.styles === 'css-in-js') {
+			this.fs.copyTpl(this.templatePath(`Component/Component.styles.ts`), this.destinationPath(`${name}.styles.ts`));
 		}
 		this.fs.copyTpl(this.templatePath(`component/IComponentProps.ts`), this.destinationPath(`I${name}Props.ts`), {
 			name: name

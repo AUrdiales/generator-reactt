@@ -62,7 +62,6 @@ const commonFiles = [
 	'webpack/plugins/html.ts',
 	'webpack/plugins/uglify.ts',
 	'webpack/webpack.dev.ts',
-	'webpack/webpack.prod.ts',
 	'index.js'
 ];
 
@@ -72,6 +71,7 @@ const sourceFilesCss = [
 	'src/index.tsx',
 	'src/index.html',
 	'webpack/webpack.common.css.ts',
+	'webpack/webpack.prod.ts',
 	'webpack/webpack.test.css.ts',
 	'webpack/plugins/css.ts',
 	...commonFiles
@@ -83,17 +83,19 @@ const sourceFilesSass = [
 	'src/index.tsx',
 	'src/index.html',
 	'webpack/webpack.common.sass.ts',
+	'webpack/webpack.prod.ts',
 	'webpack/webpack.test.sass.ts',
 	'webpack/plugins/css.ts',
 	...commonFiles
 ];
 
 const sourceFilesCssInJS = [
-	'src/containers/HelloWorld/HelloWorld.cssinjs',
+	'src/containers/HelloWorld/HelloWorld.styles.ts',
 	'src/containers/HelloWorld/HelloWorld.cssinjs.tsx',
 	'src/index.tsx',
 	'src/index.html',
 	'webpack/webpack.common.cssinjs.ts',
+	'webpack/webpack.prod.cssinjs.ts',
 	'webpack/webpack.test.cssinjs.ts',
 	...commonFiles
 ];

@@ -84,5 +84,6 @@ const cssInJSDependencies = {
 module.exports = {
 	pkgJson,
 	cssDependencies,
-	sassDependencies
+	sassDependencies,
+	cssInJSDependencies
 }
