@@ -25,6 +25,8 @@ This package is a yeoman generator for react + typescript applications.
 
 - Use Jest instead of karma + mocha + chai.
 
+- Add gulp as a task runner instead of npm scripts(maybe).
+
 - Allow the creation of React + Redux + React Router proyects.
 
 ## Getting Started
@@ -85,11 +87,15 @@ yo reactt --skip-install
 yo reactt myProject
 ```
 
-These two functionalities can be used together.
+- These two functionalities can be used together.
 ```
 yo reactt myProject --skip-install
 ```
 
+- Create a new component once your application is ready
+```
+yo reactt
+```
 # License
 
 This project is licensed under the MIT License.
