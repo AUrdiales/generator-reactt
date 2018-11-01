@@ -16,7 +16,7 @@ export class HelloWorld extends Component<IHelloWorldProps, IHelloWorldState> {
 		}));
 	}
 
-	public render(): ReactElement<HelloWorld> {
+	public render(): ReactElement<IHelloWorldProps> {
 		const { isClickable } = this.props;
 		return (
 			<div className={this.state.isClicked ? 'hello-world-background clicked' : 'hello-world-background no-clicked'}>

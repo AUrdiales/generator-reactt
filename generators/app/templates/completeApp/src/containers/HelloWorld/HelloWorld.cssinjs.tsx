@@ -16,7 +16,7 @@ export class HelloWorld extends Component<IHelloWorldProps, IHelloWorldState> {
 		}));
 	}
 
-	render(): ReactElement<HelloWorld> {
+	render(): ReactElement<IHelloWorldProps> {
 		const { isClickable } = this.props;
 		return (
 			<div
