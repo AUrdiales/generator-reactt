@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import { IHelloWorldProps } from '../../src/components/HelloWorld/IHelloWorldProps';
-import { HelloWorld } from '../../src/components/HelloWorld/HelloWorld';
+import { IHelloWorldProps } from '../../src/containers/HelloWorld/IHelloWorldProps';
+import { HelloWorld } from '../../src/containers/HelloWorld/HelloWorld';
 import { adapter } from '../adapter';
 
 adapter;

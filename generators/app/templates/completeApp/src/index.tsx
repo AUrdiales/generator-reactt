@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { SFC, ReactElement } from 'react';
 import { render } from 'react-dom';
 
-import { HelloWorld } from './components/HelloWorld/HelloWorld';
+import { HelloWorld } from './containers/HelloWorld/HelloWorld';
 
 const root: HTMLElement = document.getElementById('root');
 
-const App: React.SFC<{}> = (): JSX.Element => (
-	<div>
+const App: SFC<{}> = (): ReactElement<{}> => (
+	<>
 		<HelloWorld isClickable={true} />
-	</div>
+	</>
 );
 
 render(<App />, root);

@@ -71,8 +71,19 @@ const sassDependencies = {
 	}
 }
 
+const cssInJSDependencies = {
+	devDependencies: {
+		...pkgJson.devDependencies,
+	},
+	dependencies: {
+		...pkgJson.dependencies,
+		"emotion": "^9.2.12"
+	}
+}
+
 module.exports = {
 	pkgJson,
 	cssDependencies,
-	sassDependencies
+	sassDependencies,
+	cssInJSDependencies
 }

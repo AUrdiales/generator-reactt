@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import './<%= name %>.scss';
 import { I<%= name %>Props } from './I<%= name %>Props';
 
 export class <%= name %> extends React.Component < I<%= name %>Props > {
 
-	public render() {
+	render(): ReactElement<I<%= name %>Props >  {
 		return (
 			<div>
 				<p><%= name %></p>

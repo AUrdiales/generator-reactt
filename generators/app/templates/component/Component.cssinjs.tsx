@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactElement} from 'react';
 
-import './<%= name %>.css';
+import styles from './<%= name %>.styles';
 import { I<%= name %>Props } from './I<%= name %>Props';
 
 export function <%= name %>(props: I<%= name %>Props): ReactElement<I<%= name %>Props> {

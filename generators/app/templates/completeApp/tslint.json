@@ -12,6 +12,7 @@
 		"no-console": false,
 		"jsx-no-multiline-js": false,
 		"no-unused-expression": false,
-		"no-empty-interface": false
+		"no-empty-interface": false,
+		"member-access": false
 	}
 }
