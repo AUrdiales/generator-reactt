@@ -11,7 +11,6 @@ export default merge(common, {
 	},
 	optimization: {
 		splitChunks: {
-			name: "vendor",
 			chunks: "initial",
 		},
 	},

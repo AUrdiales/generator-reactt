@@ -6,10 +6,6 @@ import { htmlInject } from './plugins/html';
 const config: Configuration = {
 	entry: {
 		'<%= name %>': resolve(__dirname, '../src/index.tsx'),
-		react: [
-			'react',
-			'react-dom',
-		],
 	},
 	output: {
 		path: resolve(__dirname, '../dist'),

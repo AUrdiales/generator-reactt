@@ -8,10 +8,6 @@ import { extractText } from './plugins/css';
 const config: Configuration = {
 	entry: {
 		'<%= name %>': resolve(__dirname, '../src/index.tsx'),
-		react: [
-			'react',
-			'react-dom',
-		],
 	},
 	output: {
 		path: resolve(__dirname, '../dist'),
