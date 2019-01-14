@@ -86,6 +86,7 @@ module.exports = class extends Generator {
 			utils.configurationFiles.forEach((file) => {
 				this.fs.copyTpl(this.templatePath(`completeApp/${file}`), this.destinationPath(file.replace(/\.css\./, '.')), {
 					name: this.appname,
+					styles: this.answers.styles,
 				});
 			});
 			this.fs.extendJSON(this.destinationPath(`package.json`), packages.cssDependencies);
@@ -93,6 +94,7 @@ module.exports = class extends Generator {
 			utils.configurationFiles.forEach((file) => {
 				this.fs.copyTpl(this.templatePath(`completeApp/${file}`), this.destinationPath(file.replace(/\.sass\./, '.')), {
 					name: this.appname,
+					styles: this.answers.styles,
 				});
 			});
 			this.fs.extendJSON(this.destinationPath(`package.json`), packages.sassDependencies);
@@ -100,6 +102,7 @@ module.exports = class extends Generator {
 			utils.configurationFiles.forEach((file) => {
 				this.fs.copyTpl(this.templatePath(`completeApp/${file}`), this.destinationPath(file.replace(/\.cssinjs\./, '.')), {
 					name: this.appname,
+					styles: this.answers.styles,
 				});
 			});
 			this.fs.extendJSON(this.destinationPath(`package.json`), packages.cssInJSDependencies);

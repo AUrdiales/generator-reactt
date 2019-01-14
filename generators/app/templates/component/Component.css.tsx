@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import './<%= name %>.css';
 import { I<%= name %>Props } from './I<%= name %>Props';

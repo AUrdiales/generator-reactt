@@ -2,6 +2,7 @@ import { resolve } from 'path';
 import { Configuration } from 'webpack';
 import miniCSS from 'mini-css-extract-plugin';
 
+import tsChecker from './plugins/ts-checker';
 import { htmlInject } from './plugins/html';
 import { extractText } from './plugins/css';
 
@@ -30,7 +31,10 @@ const config: Configuration = {
 			},
 			{
 				test: /\.tsx?$/,
-				loader: 'awesome-typescript-loader',
+				loader: 'ts-loader',
+				options: {
+					transpileOnly: true,
+				},
 			},
 			{
 				test: /\.s?css/,
@@ -81,6 +85,7 @@ const config: Configuration = {
 	plugins: [
 		extractText,
 		htmlInject,
+		tsChecker,
 	],
 };
 
