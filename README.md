@@ -23,7 +23,7 @@ This package is a yeoman generator for react + typescript applications.
 
 - ~~Implement a create component feature to allow the developers to have a templated component ready fast.~~
 
-- Use Jest instead of karma + mocha + chai.
+- ~~Use Jest instead of karma + mocha + chai.~~
 
 - Add gulp as a task runner instead of npm scripts(maybe).
 
