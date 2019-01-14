@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
+import 'jest';
 
 import { IHelloWorldProps } from '../../src/containers/HelloWorld/IHelloWorldProps';
 import { HelloWorld } from '../../src/containers/HelloWorld/HelloWorld';
@@ -13,7 +13,7 @@ describe('Hello World component tests', () => {
 	it('should render the component', () => {
 
 		const wrapper = shallow(<HelloWorld />);
-		expect(wrapper.exists()).to.be.true;
+		expect(wrapper.exists()).toBe(true);
 	});
 
 	it('should click the text', () => {
@@ -23,7 +23,7 @@ describe('Hello World component tests', () => {
 
 		const wrapper = shallow(<HelloWorld {...helloWorldProps} />);
 		wrapper.find('.hello-world').simulate('click');
-		expect(wrapper.find('.clicked')).to.have.length(1);
+		expect(wrapper.find('.clicked')).toHaveLength(1);
 	});
 
 	it('should not click the text', () => {
@@ -33,7 +33,7 @@ describe('Hello World component tests', () => {
 
 		const wrapper = shallow(<HelloWorld {...helloWorldProps} />);
 		wrapper.find('.hello-world').simulate('click');
-		expect(wrapper.find('.no-clicked')).to.have.length(1);
+		expect(wrapper.find('.no-clicked')).toHaveLength(1);
 	});
 
 	it('should see the text when is not clicked', () => {
@@ -42,7 +42,7 @@ describe('Hello World component tests', () => {
 		};
 
 		const wrapper = shallow(<HelloWorld {...helloWorldProps} />);
-		expect(wrapper.children().text()).to.be.equal('Hello World You cannot click me!');
+		expect(wrapper.children().text()).toEqual('Hello World You cannot click me!');
 	});
 
 	it('should see the text when is clicked', () => {
@@ -52,6 +52,6 @@ describe('Hello World component tests', () => {
 
 		const wrapper = shallow(<HelloWorld {...helloWorldProps} />);
 		wrapper.find('.hello-world').simulate('click');
-		expect(wrapper.children().text()).to.be.equal('Hello World You can click me!');
+		expect(wrapper.children().text()).toEqual('Hello World You can click me!');
 	});
 });

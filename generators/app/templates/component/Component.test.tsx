@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
+import 'jest';
 
 import { I<%= name %>Props } from '../../src/components/<%= name %>/I<%= name %>Props';
 import { <%= name %> } from '../../src/components/<%= name %>/<%= name %>';
@@ -13,12 +13,12 @@ describe('<%= name %> tests', () => {
 	it('should render the component', () => {
 
 		const wrapper = shallow(<<%= name %> />);
-		expect(wrapper.exists()).to.be.true;
+		expect(wrapper.exists()).toBeTruthy();
 	});
 
 	it('should see the text', () => {
 
 		const wrapper = shallow(<<%= name %> />);
-		expect(wrapper.children().text()).to.be.equal('<%= name %>');
+		expect(wrapper.children().text()).toEqual('<%= name %>');
 	});
 });

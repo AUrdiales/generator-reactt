@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { Configuration } from 'webpack';
 
+import tsChecker from './plugins/ts-checker';
 import { htmlInject } from './plugins/html';
 
 const config: Configuration = {
@@ -28,7 +29,10 @@ const config: Configuration = {
 			},
 			{
 				test: /\.tsx?$/,
-				loader: 'awesome-typescript-loader',
+				loader: 'ts-loader',
+				options: {
+					transpileOnly: true,
+				},
 			},
 			{
 				test: /\.(jpg|png|gif|svg)$/,
@@ -70,6 +74,7 @@ const config: Configuration = {
 	},
 	plugins: [
 		htmlInject,
+		tsChecker,
 	],
 };
 

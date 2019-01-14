@@ -49,7 +49,6 @@ const addQuestions = [
 ];
 
 const configurationFiles = [
-	'karma.config.ts',
 	'tslint.json',
 	'tsconfig.json',
 	'package.json',
@@ -61,6 +60,7 @@ const commonFiles = [
 	'test',
 	'webpack/plugins/html.ts',
 	'webpack/plugins/uglify.ts',
+	'webpack/plugins/ts-checker.ts',
 	'webpack/webpack.dev.ts',
 	'index.js'
 ];
@@ -72,8 +72,8 @@ const sourceFilesCss = [
 	'src/index.html',
 	'webpack/webpack.common.css.ts',
 	'webpack/webpack.prod.ts',
-	'webpack/webpack.test.css.ts',
 	'webpack/plugins/css.ts',
+	'test/mocks/styleMock.ts',
 	...commonFiles
 ];
 
@@ -84,8 +84,8 @@ const sourceFilesSass = [
 	'src/index.html',
 	'webpack/webpack.common.sass.ts',
 	'webpack/webpack.prod.ts',
-	'webpack/webpack.test.sass.ts',
 	'webpack/plugins/css.ts',
+	'test/mocks/styleMock.ts',
 	...commonFiles
 ];
 
@@ -96,7 +96,6 @@ const sourceFilesCssInJS = [
 	'src/index.html',
 	'webpack/webpack.common.cssinjs.ts',
 	'webpack/webpack.prod.cssinjs.ts',
-	'webpack/webpack.test.cssinjs.ts',
 	...commonFiles
 ];
 

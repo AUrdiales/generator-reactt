@@ -6,10 +6,29 @@
   "scripts": {
     "start": "node index.js",
     "clean": "rimraf dist/*",
-    "serve": "NODE_ENV=development webpack-dev-server --config webpack/webpack.dev.ts --port 3333",
-    "build": "yarn clean && NODE_ENV=production webpack --config webpack/webpack.prod.ts",
-    "test": "karma start karma.config.ts"
+    "serve": "cross-env NODE_ENV=development webpack-dev-server --config webpack/webpack.dev.ts --port 3333",
+    "build": "yarn clean && cross-env NODE_ENV=production webpack --config webpack/webpack.prod.ts",
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "./test/.*.test.tsx?$",
+   <% if (styles === 'css' || 'sass') { %>
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/test/mocks/styleMock.ts"
+    },
+  <% } %>
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
+  }
 }
