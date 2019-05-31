@@ -75,7 +75,7 @@ const cssInJSDependencies = {
 	},
 	dependencies: {
 		...pkgJson.dependencies,
-		"emotion": "^9.2.12"
+		"emotion": "^10.0.9"
 	}
 }
 
