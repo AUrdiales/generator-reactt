@@ -50,7 +50,6 @@ const commonFiles = [
   "test",
   "webpack/plugins/html.ts",
   "webpack/plugins/uglify.ts",
-  "webpack/plugins/ts-checker.ts",
   "webpack/webpack.dev.ts",
   "webpack/webpack.common.ts",
   "webpack/webpack.prod.ts",

@@ -24,34 +24,24 @@ module.exports = class extends Generator {
 
   async prompting() {
     let questions;
-    if (this.config.get("manager")) {
-      questions = utils.addQuestions;
-      this.answers = await this.prompt(questions);
-    } else {
-      questions = utils.questions;
-      if (this.options["skip-install"]) {
-        questions = questions.filter(question => question.name !== "manager");
-      }
-      if (this.options.name) {
-        questions = questions.filter(question => question.name !== "name");
-      }
-      this.answers = await this.prompt(questions);
-      this._private_setAppName();
+
+    questions = utils.questions;
+    if (this.options["skip-install"]) {
+      questions = questions.filter(question => question.name !== "manager");
     }
+    if (this.options.name) {
+      questions = questions.filter(question => question.name !== "name");
+    }
+    this.answers = await this.prompt(questions);
+    this._private_setAppName();
   }
 
   configuring() {
-    if (!this.config.get("manager")) {
-      this._private_copyConfigurationFiles();
-    }
+    this._private_copyConfigurationFiles();
   }
 
   writing() {
-    if (this.config.get("manager")) {
-      this._private_copyAddFeature();
-    } else {
-      this._private_copySourceFiles();
-    }
+    this._private_copySourceFiles();
   }
 
   conflicts() {
@@ -59,13 +49,11 @@ module.exports = class extends Generator {
   }
 
   install() {
-    if (!this.configured.manager) {
-      this._private_installDependencies();
-      this.config.set("stack", "react");
-      this.config.set("manager", this.answers.manager ? "yarn" : "npm");
-      this.config.set("styles", this.answers.styles);
-      this.config.save();
-    }
+    this._private_installDependencies();
+    this.config.set("stack", "react");
+    this.config.set("manager", this.answers.manager ? "yarn" : "npm");
+    this.config.set("styles", this.answers.styles);
+    this.config.save();
   }
 
   end() {
@@ -171,117 +159,6 @@ module.exports = class extends Generator {
           }
         );
       });
-    }
-  }
-
-  _private_copyAddFeature() {
-    const name = `${this.answers.componentName
-      .charAt(0)
-      .toUpperCase()}${this.answers.componentName.slice(1)}`;
-    if (this.answers.feature === "component") {
-      if (this.configured.styles === "css") {
-        this.destinationRoot(`${process.cwd()}/src/components/${name}`);
-        this.fs.copyTpl(
-          this.templatePath(`component/Component.css.tsx`),
-          this.destinationPath(`${name}.tsx`),
-          {
-            name: name
-          }
-        );
-      } else if (this.configured.styles === "sass") {
-        this.destinationRoot(`${process.cwd()}/src/components/${name}`);
-        this.fs.copyTpl(
-          this.templatePath(`component/Component.sass.tsx`),
-          this.destinationPath(`${name}.tsx`),
-          {
-            name: name
-          }
-        );
-      } else if (this.configured.styles === "css-in-js") {
-        this.destinationRoot(`${process.cwd()}/src/components/${name}`);
-        this.fs.copyTpl(
-          this.templatePath(`component/Component.cssinjs.tsx`),
-          this.destinationPath(`${name}.tsx`),
-          {
-            name: name
-          }
-        );
-      }
-    } else {
-      if (this.configured.styles === "css") {
-        this.destinationRoot(`${process.cwd()}/src/containers/${name}`);
-        this.fs.copyTpl(
-          this.templatePath(`component/Container.css.tsx`),
-          this.destinationPath(`${name}.tsx`),
-          {
-            name: name
-          }
-        );
-      } else if (this.configured.styles === "sass") {
-        this.destinationRoot(`${process.cwd()}/src/containers/${name}`);
-        this.fs.copyTpl(
-          this.templatePath(`component/Container.sass.tsx`),
-          this.destinationPath(`${name}.tsx`),
-          {
-            name: name
-          }
-        );
-      } else if (this.configured.styles === "css-in-js") {
-        this.destinationRoot(`${process.cwd()}/src/containers/${name}`);
-        this.fs.copyTpl(
-          this.templatePath(`component/Container.cssinjs.tsx`),
-          this.destinationPath(`${name}.tsx`),
-          {
-            name: name
-          }
-        );
-      }
-    }
-    if (this.configured.styles === "css") {
-      this.fs.copyTpl(
-        this.templatePath(`Component/Component.css`),
-        this.destinationPath(`${name}.css`)
-      );
-    } else if (this.configured.styles === "sass") {
-      this.fs.copyTpl(
-        this.templatePath(`Component/Component.css`),
-        this.destinationPath(`${name}.scss`)
-      );
-    } else if (this.configured.styles === "css-in-js") {
-      this.fs.copyTpl(
-        this.templatePath(`Component/Component.styles.ts`),
-        this.destinationPath(`${name}.styles.ts`)
-      );
-    }
-    this.fs.copyTpl(
-      this.templatePath(`component/IComponentProps.ts`),
-      this.destinationPath(`I${name}Props.ts`),
-      {
-        name: name
-      }
-    );
-    if (this.answers.feature === "component") {
-      process.chdir("../../../");
-      this.log(process.cwd());
-      this.destinationRoot(`${process.cwd()}/test/${name}`);
-      this.fs.copyTpl(
-        this.templatePath(`component/Component.test.tsx`),
-        this.destinationPath(`${name}.test.tsx`),
-        {
-          name: name
-        }
-      );
-    } else {
-      process.chdir("../../../");
-      this.log(process.cwd());
-      this.destinationRoot(`${process.cwd()}/test/${name}`);
-      this.fs.copyTpl(
-        this.templatePath(`component/Container.test.tsx`),
-        this.destinationPath(`${name}.test.tsx`),
-        {
-          name: name
-        }
-      );
     }
   }
 

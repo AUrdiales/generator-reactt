@@ -6,7 +6,6 @@ import miniCSS from "mini-css-extract-plugin";
 import { extractText } from "./plugins/css";
 <% } %>
 import { htmlInject } from "./plugins/html";
-import tsChecker from "./plugins/ts-checker";
 
 const config: Configuration = {
   entry: {
@@ -20,10 +19,8 @@ const config: Configuration = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: "ts-loader",
-        options: {
-          transpileOnly: true
-        }
+        loader: "awesome-typescript-loader",
+      
 			},
 			<%if (styles === 'css' || styles === 'sass') { %>
 				{
@@ -82,7 +79,7 @@ const config: Configuration = {
     extractText,
     <% } %>
     htmlInject,
-    tsChecker]
+    ]
 };
 
 export default config;
