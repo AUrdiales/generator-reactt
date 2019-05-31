@@ -1,6 +1,5 @@
 const pkgJson = {
 	devDependencies: {
-		"@types/chai": "^4.1.6",
 		"@types/enzyme": "^3.1.14",
 		"@types/enzyme-adapter-react-16": "^1.0.3",
 		"@types/html-webpack-plugin": "^3.2.0",
@@ -12,22 +11,22 @@ const pkgJson = {
 		"@types/webpack": "^4.4.13",
 		"@types/webpack-dev-server": "^3.1.1",
 		"@types/webpack-merge": "^4.1.3",
-		"chai": "^4.2.0",
+		"@typescript-eslint/eslint-plugin": "^1.9.0",
+		"@typescript-eslint/parser": "^1.9.0",
+		"awesome-typescript-loader": "^5.2.1",
 		"enzyme": "^3.6.0",
 		"enzyme-adapter-react-16": "^1.5.0",
+		"eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-react": "^7.13.0",
 		"file-loader": "^2.0.0",
-		"fork-ts-checker-webpack-plugin": "^0.5.0",
 		"html-webpack-plugin": "^3.2.0",
-		"jest": "^23.6.0",
-		"mocha": "^5.2.0",
+		"jest": "^24.6.0",
+		"prettier": "^1.17.1",
 		"rimraf": "^2.6.2",
 		"style-loader": "^0.23.0",
-		"ts-jest": "^23.10.4",
-		"ts-loader": "^5.3.1",
+		"ts-jest": "^24.0.2",
 		"ts-node": "^7.0.1",
-		"tslint": "^5.11.0",
-		"tslint-loader": "^3.6.0",
-		"tslint-react": "^3.6.0",
 		"typescript": "^3.1.1",
 		"uglifyjs-webpack-plugin": "^2.0.1",
 		"url-loader": "^1.1.1",
@@ -74,7 +73,7 @@ const cssInJSDependencies = {
 	},
 	dependencies: {
 		...pkgJson.dependencies,
-		"emotion": "^9.2.12"
+		"emotion": "^10.0.9"
 	}
 }
 
