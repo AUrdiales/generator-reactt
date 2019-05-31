@@ -1,10 +1,12 @@
 import { resolve } from "path";
 import { Configuration } from "webpack";
+<%if (styles === 'css' || styles === 'sass') { %>
 import miniCSS from "mini-css-extract-plugin";
 
-import tsChecker from "./plugins/ts-checker";
-import { htmlInject } from "./plugins/html";
 import { extractText } from "./plugins/css";
+<% } %>
+import { htmlInject } from "./plugins/html";
+import tsChecker from "./plugins/ts-checker";
 
 const config: Configuration = {
   entry: {
@@ -25,14 +27,14 @@ const config: Configuration = {
 			},
 			<%if (styles === 'css' || styles === 'sass') { %>
 				{
-					test: /\.css/,
+					test: /\.s?css/,
 					use: [
 						process.env.NODE_ENV === "development"
             ? "style-loader"
             : miniCSS.loader,
-						"css-loader"
-						<%if (styles === 'css' || styles === 'sass') { %>
-							"sass-loader"
+						"css-loader",
+						<%if (styles === 'sass') { %>
+							"sass-loader",
 							<%}%>
 					]
 				},
@@ -75,7 +77,12 @@ const config: Configuration = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json", ".jsx"]
   },
-  plugins: [extractText, htmlInject, tsChecker]
+  plugins: [
+    <%if (styles === 'css' || styles === 'sass') { %>
+    extractText,
+    <% } %>
+    htmlInject,
+    tsChecker]
 };
 
 export default config;
