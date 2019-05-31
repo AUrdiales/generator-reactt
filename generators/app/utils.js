@@ -40,7 +40,7 @@ const addQuestions = [
   }
 ];
 
-const configurationFiles = ["tslint.json", "tsconfig.json", "package.json"];
+const configurationFiles = [".prettierrc.js",".eslintrc.js", "tsconfig.json", "package.json"];
 
 const commonFiles = [
   "src/components/HelloWorld/IHelloWorldProps.ts",
